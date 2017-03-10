@@ -4,7 +4,7 @@ Requires=docker.service
 After=docker.service
 
 [Service]
-Type=simple
+Type=oneshot
 #ExecStartPre=/bin/mkdir -p /usr/local/etc/docker-ccdb-composed/
 ExecStart=/usr/bin/docker-compose -f /usr/local/etc/alarm-server-composed/docker-compose.yml up -d
 ExecStop=/usr/bin/docker-compose -f /usr/local/etc/alarm-server-composed/docker-compose.yml down
