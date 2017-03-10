@@ -1,0 +1,50 @@
+version: '3.1'
+services:
+    alarm-server-service:
+        container_name: alarm-server
+        image: gciotto/alarm-server
+        networks:
+            - alarm-network
+        dns:
+            - 10.0.0.71
+            - 10.0.0.72
+        depends_on:
+            - alarm-server-postgres-db
+            - alarm-server-activemq
+
+    alarm-server-postgres-db:
+        container_name: alarm-postgres-db
+        image: gciotto/alarm-postgres-db
+        ports:
+            - "5432:5432"
+        environment:
+            - POSTGRES_USER=lnls_alarm_user
+            - POSTGRES_PASSWORD=controle
+            - POSTGRES_DB=lnls_alarms
+            - PGDATA=/var/lib/postgresql/data/alarm-db
+        networks:
+            - alarm-network
+        dns:
+            - 10.0.0.71
+            - 10.0.0.72
+        volumes:
+            - alarm-server-postgres-volume:/var/lib/postgresql/data/alarm-db
+
+    alarm-server-activemq:
+        container_name: alarm-server-activemq
+        image: gciotto/alarm-server-activemq
+        ports:
+            - "61616:61616"
+        dns:
+            - 10.0.0.71
+            - 10.0.0.72
+        networks:
+            - alarm-network
+
+volumes:        
+    alarm-server-postgres-volume:
+
+networks:
+    alarm-network:
+        
+    
