@@ -1,0 +1,30 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: beast-alarm-postgres-db-pod
+  labels:
+    app: beast-alarm-postgres-db
+spec:
+  containers:
+  - name: alarm-postgres-db
+    image: gciotto/alarm-postgres-db
+    ports:
+    - containerPort : 5432
+    env:
+    - name: POSTGRES_USER
+      value: lnls_alarm_user
+    - name: POSTGRES_PASSWORD
+      value: controle
+    - name: POSTGRES_DB
+      value: lnls_alarms
+    - name: PGDATA
+      value: /var/lib/postgresql/data/alarm-db
+    volumeMounts:
+    - mountPath: /var/lib/postgresql/data/alarm-db
+      name: beast-alarm-postgres-db
+
+  volumes:
+  - name: beast-alarm-postgres-db
+    hostPath:
+      path: /var/roothome/beast-alarm-storage/beast-alarm-postgres-db
+

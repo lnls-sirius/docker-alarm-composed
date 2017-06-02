@@ -1,0 +1,10 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: beast-alarm-server-pod
+  labels:
+    app: beast-alarm-server
+spec:
+  containers:
+  - name: alarm-server
+    image: gciotto/alarm-server

@@ -1,0 +1,8 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: beast-alarm-server-service
+spec:
+  clusterIP: 10.128.2.2
+  selector:
+    app : beast-alarm-server
