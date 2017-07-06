@@ -1,17 +1,19 @@
-version: '3.1'
+version: '2'
 services:
     alarm-server:
         container_name: alarm-server
         image: gciotto/alarm-server
         networks:
             alarm-network:
-                ipv4_address: 10.128.2.4
+                ipv4_address: 192.168.4.2
         dns:
             - 10.0.0.71
             - 10.0.0.72
         depends_on:
             - alarm-server-postgres-db
             - alarm-server-activemq
+        env_file:
+            - /etc/systemd/system/lnls-beast-server.service.d/lnls-beast-server.env
 
     alarm-server-postgres-db:
         container_name: alarm-postgres-db
@@ -25,12 +27,12 @@ services:
             - PGDATA=/var/lib/postgresql/data/alarm-db
         networks:
             alarm-network:
-                ipv4_address: 10.128.2.2
+                ipv4_address: 192.168.4.3
         dns:
             - 10.0.0.71
             - 10.0.0.72
         volumes:
-            - alarm-server-postgres-volume:/var/lib/postgresql/data/alarm-db
+            - /home/opr24/docker-storage/alarm-server-db:/var/lib/postgresql/data/alarm-db
 
     alarm-server-activemq:
         container_name: alarm-server-activemq
@@ -42,14 +44,12 @@ services:
             - 10.0.0.72
         networks:
             alarm-network:
-                ipv4_address: 10.128.2.3
+                ipv4_address: 192.168.4.4
 
-volumes:        
-    alarm-server-postgres-volume:
 
 networks:
     alarm-network:
         ipam:
             config:
-                - subnet: 10.128.2.0/24
+                - subnet: 192.168.4.0/24
     
