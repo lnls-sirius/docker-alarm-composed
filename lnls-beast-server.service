@@ -1,0 +1,14 @@
+[Unit]
+Description=BEAST Alarm Server
+Requires=docker.service
+After=docker.service
+
+[Service]
+Type=oneshot
+ExecStart=/usr/bin/docker-compose -f /usr/local/etc/lnls-beast-server/docker-compose.yml up -d
+ExecStop=/usr/bin/docker-compose -f /usr/local/etc/lnls-beast-server/docker-compose.yml down
+RemainAfterExit=yes
+
+[Install]
+WantedBy=multi-user.target
+
