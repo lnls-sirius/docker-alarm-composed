@@ -3,7 +3,7 @@ kind: Service
 metadata:
   name: beast-alarm-activemq-service
 spec:
-  clusterIP: 10.128.2.3
+  clusterIP: 192.168.4.4
   selector:
     app : beast-alarm-activemq
   ports:
