@@ -3,6 +3,7 @@ services:
     alarm-server:
         container_name: alarm-server
         image: gciotto/alarm-server
+        hostname: alarm-server
         networks:
             alarm-network:
                 ipv4_address: 192.168.4.2
@@ -18,6 +19,7 @@ services:
     alarm-server-postgres-db:
         container_name: alarm-postgres-db
         image: gciotto/alarm-postgres-db
+        hostname: alarm-server-postgres-db
         ports:
             - "5432:5432"
         environment:
@@ -37,6 +39,7 @@ services:
     alarm-server-activemq:
         container_name: alarm-server-activemq
         image: gciotto/alarm-server-activemq
+        hostname: alarm-server-activemq
         ports:
             - "61616:61616"
         dns:
