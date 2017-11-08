@@ -1,0 +1,53 @@
+version: '3.2'
+services:
+    alarm-server:
+        image: gciotto/alarm-server
+        hostname: alarm-server
+        networks:
+            - alarm-network
+        dns:
+            - 10.0.0.71
+            - 10.0.0.72
+        depends_on:
+            - alarm-server-postgres-db
+            - alarm-server-activemq
+        env_file:
+            - /home/srv1/repository/docker-alarm-composed/swarm/lnls-beast-server.env
+
+    alarm-server-postgres-db:
+        image: gciotto/alarm-postgres-db
+        hostname: alarm-postgres-db
+        ports:
+            - "5432:5432"
+        environment:
+            - POSTGRES_USER=lnls_alarm_user
+            - POSTGRES_PASSWORD=controle
+            - POSTGRES_DB=lnls_alarms
+            - PGDATA=/var/lib/postgresql/data/alarm-db
+        networks:
+            - alarm-network
+        dns:
+            - 10.0.0.71
+            - 10.0.0.72
+        volumes:
+            - /storage/beast/:/var/lib/postgresql/data/alarm-db
+
+    alarm-server-activemq:
+        image: gciotto/alarm-server-activemq
+        hostname: alarm-server-activemq
+        ports:
+            - "61616:61616"
+        dns:
+            - 10.0.0.71
+            - 10.0.0.72
+        networks:
+            - alarm-network
+
+
+networks:
+    alarm-network:
+        driver: overlay
+        ipam:
+            config:
+                - subnet: 192.168.4.0/24
+    
