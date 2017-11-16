@@ -14,4 +14,4 @@ Execute `make install` with `root` rights in order to copy all required files an
 
 ## Deployment with Docker Swarm
 
-Enter `swarm/` directory and execute `docker stack deploy -c docker-swarm beast-con` to deploy the services into the swarm and `docker stack rm beast-con` to shut them down.
+Enter `swarm/` directory and execute `docker stack deploy -c docker-swarm.yml beast-con` to deploy the services into the swarm and `docker stack rm beast-con` to shut them down.
