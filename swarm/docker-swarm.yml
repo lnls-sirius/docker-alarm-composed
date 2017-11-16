@@ -1,7 +1,7 @@
 version: '3.2'
 services:
     alarm-server:
-        image: gciotto/alarm-server:latest
+        image: lnlscon/alarm-server:latest
         hostname: alarm-server
         networks:
             - alarm-network
@@ -12,10 +12,10 @@ services:
             - alarm-server-postgres-db
             - alarm-server-activemq
         env_file:
-            - /home/srv1/repository/docker-alarm-composed/swarm/lnls-beast-server.env
+            - /home/srv1/repository/docker-alarm-composed/lnls-beast-server.env
 
     alarm-server-postgres-db:
-        image: gciotto/alarm-postgres-db:latest
+        image: lnlscon/alarm-postgres-db:latest
         hostname: alarm-server-postgres-db
         ports:
             - "5432:5432"
@@ -30,10 +30,10 @@ services:
             - 10.0.0.71
             - 10.0.0.72
         volumes:
-            - /storage/beast/:/var/lib/postgresql/data/alarm-db
+            - /storage/beast/db/:/var/lib/postgresql/data/alarm-db
 
     alarm-server-activemq:
-        image: gciotto/alarm-server-activemq:latest
+        image: lnlscon/alarm-server-activemq:latest
         hostname: alarm-server-activemq
         ports:
             - "61616:61616"
