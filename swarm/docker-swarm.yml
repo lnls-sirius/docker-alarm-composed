@@ -13,6 +13,11 @@ services:
             - alarm-server-activemq
         env_file:
             - /home/srv1/repository/docker-alarm-composed/lnls-beast-server.env
+        deploy:
+            resources:
+              limits:
+                cpus: "2"
+                memory: 1024M
 
     alarm-server-postgres-db:
         image: lnlscon/alarm-postgres-db:latest
@@ -31,6 +36,11 @@ services:
             - 10.0.0.72
         volumes:
             - /storage/beast/db/:/var/lib/postgresql/data/alarm-db
+        deploy:
+            resources:
+              limits:
+                cpus: "2"
+                memory: 1024M
 
     alarm-server-activemq:
         image: lnlscon/alarm-server-activemq:latest
@@ -42,6 +52,11 @@ services:
             - 10.0.0.72
         networks:
             - alarm-network
+        deploy:
+            resources:
+              limits:
+                cpus: "2"
+                memory: 1024M
 
 
 networks:
