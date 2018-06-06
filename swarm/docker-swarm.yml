@@ -19,6 +19,26 @@ services:
                 cpus: "2"
                 memory: 1024M
 
+    alarm-notifier:
+        image: lnlscon/alarm-server-notifier:latest
+        hostname: alarm-notifier
+        networks:
+            - alarm-network
+        dns:
+            - 10.0.0.71
+            - 10.0.0.72
+        depends_on:
+            - alarm-server-postgres-db
+            - alarm-server-activemq
+        env_file:
+            - /home/srv1/repository/docker-alarm-composed/lnls-beast-server.env
+        deploy:
+            resources:
+              limits:
+                cpus: "2"
+                memory: 1024M
+
+
     alarm-server-postgres-db:
         image: lnlscon/alarm-postgres-db:latest
         hostname: alarm-server-postgres-db
