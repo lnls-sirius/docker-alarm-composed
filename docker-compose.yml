@@ -16,6 +16,22 @@ services:
         env_file:
             - /etc/systemd/system/lnls-beast-server.service.d/lnls-beast-server.env
 
+    alarm-notifier:
+        container_name: alarm-notifier
+        image: lnlscon/alarm-server-notifier
+        hostname: alarm-notifier
+        networks:
+            alarm-network:
+                ipv4_address: 192.168.4.5
+        dns:
+            - 10.0.0.71
+            - 10.0.0.72
+        depends_on:
+            - alarm-server-postgres-db
+            - alarm-server-activemq
+        env_file:
+            - /etc/systemd/system/lnls-beast-server.service.d/lnls-beast-server.env
+
     alarm-server-postgres-db:
         container_name: alarm-postgres-db
         image: gciotto/alarm-postgres-db
