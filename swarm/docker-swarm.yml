@@ -12,8 +12,13 @@ services:
             - alarm-server-postgres-db
             - alarm-server-activemq
         env_file:
-            - /home/srv1/repository/docker-alarm-composed/lnls-beast-server.env
+            - /home/con-srv/repository/docker-alarm-composed/lnls-beast-server.env
         deploy:
+            mode: replicated
+            replicas: 1
+            placement:
+                constraints:
+                - node.hostname == LA-RaCtrl-CO-Srv-1
             resources:
               limits:
                 cpus: "2"
@@ -31,8 +36,13 @@ services:
             - alarm-server-postgres-db
             - alarm-server-activemq
         env_file:
-            - /home/srv1/repository/docker-alarm-composed/lnls-beast-server.env
+            - /home/con-srv/repository/docker-alarm-composed/lnls-beast-server.env
         deploy:
+            mode: replicated
+            replicas: 1
+            placement:
+                constraints:
+                - node.hostname == LA-RaCtrl-CO-Srv-1
             resources:
               limits:
                 cpus: "2"
@@ -55,8 +65,13 @@ services:
             - 10.0.0.71
             - 10.0.0.72
         volumes:
-            - /storage/beast/db/:/var/lib/postgresql/data/alarm-db
+            - /storage/epics-services/beast/db/:/var/lib/postgresql/data/alarm-db
         deploy:
+            mode: replicated
+            replicas: 1
+            placement:
+                constraints:
+                - node.hostname == LA-RaCtrl-CO-Srv-1
             resources:
               limits:
                 cpus: "2"
@@ -73,6 +88,11 @@ services:
         networks:
             - alarm-network
         deploy:
+            mode: replicated
+            replicas: 1
+            placement:
+                constraints:
+                - node.hostname == LA-RaCtrl-CO-Srv-1
             resources:
               limits:
                 cpus: "2"
